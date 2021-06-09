@@ -1,0 +1,8 @@
+.title {
+  display: flex;
+  color: rgb(32, 31, 31);
+  background-color: #ffffff;
+  height: 50px;
+  align-items: center;
+  /* justify-content: center; */
+}
