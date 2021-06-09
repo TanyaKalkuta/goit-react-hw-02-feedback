@@ -29,12 +29,12 @@ class App extends React.Component {
             good: prevState.good + 1,
         }));
     };
-    handleIncrementNeutral = (e) => {
+    handleIncrementNeutral = () => {
         this.setState(prevState => ({
             neutral: prevState.neutral + 1,
         }));
     };
-    handleIncrementBad = (e) => {
+    handleIncrementBad = () => {
         this.setState(prevState => ({
             bad: prevState.bad + 1,
         }));
@@ -55,19 +55,18 @@ class App extends React.Component {
     return (
       
       <Container>
-        <FeedbackOptions>         
-          onLeaveFeedbackGood={this.handleIncrementGood}
-          onLeaveFeedbackNeutral={this.handleIncrementNeutral}
-          onLeaveFeedbackBad={this.handleIncrementBad}
-        </FeedbackOptions>
+        <FeedbackOptions
+         onLeaveFeedbackGood={this.handleIncrementGood}
+         onLeaveFeedbackNeutral={this.handleIncrementNeutral}
+         onLeaveFeedbackBad={this.handleIncrementBad}/>
 
-       <Statistics>
+       <Statistics
           good={this.state.good}
           neutral={this.state.neutral}
           bad={this.state.bad}
           total={this.countTotalFeedback}
           positivePercentage={this.countPositiveFeedbackPercentage}
-        </Statistics>
+        />
 
         </Container>
     )
