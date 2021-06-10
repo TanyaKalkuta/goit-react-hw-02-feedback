@@ -1,0 +1,8 @@
+.title_message {
+  display: flex;
+  color: rgb(121, 23, 23);
+  height: 50px;
+  align-items: center;
+  margin-left: 35px;
+  font-size: 20px;
+}

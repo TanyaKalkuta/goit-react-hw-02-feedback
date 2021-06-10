@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Container from './Component/Container/Container';
 import Statistics from './Component/Statistics/Statistics';
 import FeedbackOptions from './Component/FeedbackOptions/FeedbackOptions';
-
+import Notification from './Component/Notification/Notification'
 
 class App extends React.Component {
       static defaultProps = {
@@ -24,26 +24,18 @@ class App extends React.Component {
         bad: this.props.bad,
     };
 
-    handleIncrementGood = () => {       
-           this.setState(prevState => ({
-            good: prevState.good + 1,
+    handleIncrement = (e) => {
+      const { name } = e.target;
+           this.setState((prevState) => ({
+            [name]: prevState[name] + 1,
         }));
     };
-    handleIncrementNeutral = () => {
-        this.setState(prevState => ({
-            neutral: prevState.neutral + 1,
-        }));
-    };
-    handleIncrementBad = () => {
-        this.setState(prevState => ({
-            bad: prevState.bad + 1,
-        }));
-    };
-
+   
     countTotalFeedback() {
         const { good, neutral, bad } = this.state;
         return good + neutral + bad;
-    };
+  };
+  
     countPositiveFeedbackPercentage() {
         const { good } = this.state;
         return Math.round((good / this.countTotalFeedback()) * 100);
@@ -51,22 +43,32 @@ class App extends React.Component {
 
   render() {
      
-    // const { good, neutral, bad } = this.state;
+    const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+    const keys = Object.keys(this.state);
     return (
       
       <Container>
         <FeedbackOptions
-         onLeaveFeedbackGood={this.handleIncrementGood}
-         onLeaveFeedbackNeutral={this.handleIncrementNeutral}
-         onLeaveFeedbackBad={this.handleIncrementBad}/>
-
-       <Statistics
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          total={this.countTotalFeedback}
-          positivePercentage={this.countPositiveFeedbackPercentage}
+         options={keys}
+         onLeaveFeedback={this.handleIncrement}
         />
+        
+        {total ? (
+          <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={total}
+          positivePercentage={positivePercentage}
+        />
+        ) : (
+            <Notification
+              message="No feedback given"
+            />
+        )
+        }  
 
         </Container>
     )
